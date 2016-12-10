@@ -22,6 +22,7 @@ namespace Spacex.Pictures
         public double animation_fall = 0;
         public int add_Texture = 1;
 
+        public bool destroyed = false;
         public bool jump = true;
 
         public spacecraft()
@@ -48,7 +49,7 @@ namespace Spacex.Pictures
                 jump_fall = 0;
             }
 
-            // ten fragment jest odpowiedzialny za animacje
+            // ten fragment powoduje dłuższy skok za pomocą spacji
             animation_fall += Const.GAMETIME.ElapsedGameTime.TotalMilliseconds;
             if (animation_fall > animation_time)
             {
@@ -64,6 +65,7 @@ namespace Spacex.Pictures
                 Yfall = -5;
             }
 
+
             // obrót statku
             if (Yfall > 0f)
                 Rotation = 0.1f;
@@ -73,6 +75,11 @@ namespace Spacex.Pictures
             // dzęki temu statek spada
             this.Position.Y += Yfall;
 
+            // jesli statek dotknie podlogi to zniszczony bedzie
+            if (this.Position.Y > 500)
+            {
+                destroyed = true;
+            }
         }
 
         // zakres statku, taki kwadacik który dotyka inne rzeczy żeby określić czy statek zniszczony 
@@ -82,6 +89,7 @@ namespace Spacex.Pictures
         {
             Const.SPRITEBATCH.Draw(this.Texture[this.texture_Position], this.Position, null, Color.White, this.Rotation, new Vector2(20, 20), 1f, SpriteEffects.None, 0f);
 
+            
             Const.SPRITEBATCH.Draw(Const.PIXEL, this.Limit, new Color(1f, 0f, 0f, 0.3f));
         }
     }

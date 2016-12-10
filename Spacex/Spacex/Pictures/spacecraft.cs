@@ -7,12 +7,13 @@ using System.Text;
 
 namespace Spacex.Pictures
 {
-    class spacecraft
+    public class spacecraft
     {
         public Texture2D[] Texture;
         public int texture_Position;
         public Vector2 Position;
         public float Rotation;
+        public float Yfall;
 
         public spacecraft()
         {
@@ -27,6 +28,17 @@ namespace Spacex.Pictures
 
         public void Update()
         {
+            // szybkość spadania
+            Yfall += 0.2f;
+
+            // obrót statku
+            if (Yfall > 0f)
+                Rotation = 0.5f;
+            else
+                Rotation = -0.5f;
+
+            // dzęki temu statek spada
+            this.Position.Y += Yfall;
 
         }
 

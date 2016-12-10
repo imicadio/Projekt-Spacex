@@ -89,8 +89,8 @@ namespace Spacex.Pictures
         {
             Const.SPRITEBATCH.Draw(this.Texture[this.texture_Position], this.Position, null, Color.White, this.Rotation, new Vector2(20, 20), 1f, SpriteEffects.None, 0f);
 
-            
-            Const.SPRITEBATCH.Draw(Const.PIXEL, this.Limit, new Color(1f, 0f, 0f, 0.3f));
+            if (Const.DEBUG)
+                Const.SPRITEBATCH.Draw(Const.PIXEL, this.Limit, new Color(1f, 0f, 0f, 0.3f));
         }
     }
 }

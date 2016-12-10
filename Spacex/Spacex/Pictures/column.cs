@@ -33,10 +33,10 @@ namespace Spacex.Pictures
         {
             Const.SPRITEBATCH.Draw(this.texture, this.Position, Color.White);
 
-            
-            Const.SPRITEBATCH.Draw(Const.PIXEL, this.Upper_Limit, new Color(1f, 0f, 0f, 0.3f));
-           
-            Const.SPRITEBATCH.Draw(Const.PIXEL, this.Lower_Limit, new Color(1f, 0f, 0f, 0.3f));
+            if (Const.DEBUG) // debug umieszczone, ponieważ wtedy nie widać koloru granic
+                Const.SPRITEBATCH.Draw(Const.PIXEL, this.Upper_Limit, new Color(1f, 0f, 0f, 0.3f));
+            if (Const.DEBUG)
+                Const.SPRITEBATCH.Draw(Const.PIXEL, this.Lower_Limit, new Color(1f, 0f, 0f, 0.3f));
         }
     }
 }

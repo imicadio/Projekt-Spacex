@@ -23,5 +23,7 @@ namespace Spacex
         public static Random RANDOM = new Random();
 
         public static Manager.InputManager INPUT;
+
+        public static bool DEBUG = false;
     }
 }

@@ -35,21 +35,25 @@ namespace Spacex.Screens
             background = Const.CONTENT.Load<Texture2D>("Texture/background");
             floor = Const.CONTENT.Load<Texture2D>("Texture/floor");
             font = Const.CONTENT.Load<SpriteFont>("Font/Font");
+
+            Restart();
+            base.LoadContent();
+        }
+
+        public void Restart()
+        {
             spacecraft = new Pictures.spacecraft();
             scroll = new Pictures.scroll();
             column = new List<Pictures.column>();
             column.Add(new Pictures.column());
             score = 0;
-            Game_Over = false;
-
-            base.LoadContent();
         }
 
         public override void Update()
         {
             // poniżej został umieszczony kod który odpowiada za wynik, zniszczenie statku, pozycje kolumn
             Create_Column();
-            if (!Game_Over)
+            if (!spacecraft.destroyed)
             {
                 for (int i = column.Count - 1; i > -1; i--) // kolumny 
                 {
@@ -69,14 +73,19 @@ namespace Spacex.Screens
                         if (spacecraft.Limit.Intersects(column[i].Upper_Limit) || spacecraft.Limit.Intersects(column[i].Lower_Limit))
                         {
                             // statek zniszczony bo dotknął kolumny albo dolnej i górnej granicy
-                            Game_Over = true;
+                            spacecraft.destroyed = true;
                         }
                     }
                 }
-            }
+
 
                 spacecraft.Update();
                 scroll.Update();
+            }
+
+            // wciśnięcie R powoduje restart gry
+            if (spacecraft.destroyed && Const.INPUT.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.R))
+                this.Restart();
 
                 base.Update();
             }

@@ -10,6 +10,7 @@ namespace Spacex.Screens
     class GameScreen : Screen
     {
         public Texture2D background;
+        public Pictures.spacecraft spacecraft;
 
 
         public GameScreen()
@@ -20,22 +21,27 @@ namespace Spacex.Screens
         public override void LoadContent()
         {
             //Wczytanie textur
-
             background = Const.CONTENT.Load<Texture2D>("Texture/background");
+            spacecraft = new Pictures.spacecraft();
 
             base.LoadContent();
         }
 
         public override void Update()
         {
+            spacecraft.Update();
             base.Update();
         }
 
-        public override void Draw() // w metodzie Draw() umieszczone są tła, statki, wynik czy scroll
+
+        // w metodzie Draw() umieszczone są tła, statki, wynik czy scroll
+        public override void Draw()
         {
             Const.SPRITEBATCH.Begin();
 
             Const.SPRITEBATCH.Draw(this.background, Vector2.Zero, Color.White);
+
+            spacecraft.Draw();
 
             Const.SPRITEBATCH.End();
             base.Draw();

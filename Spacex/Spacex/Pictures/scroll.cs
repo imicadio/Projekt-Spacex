@@ -11,6 +11,7 @@ namespace Spacex.Pictures
     {
         // klasa scroll dla paska który "przemija" animuje sie
         public Vector2 Position;
+        public Vector2 Position1;
         public Texture2D texture;
 
         public int animation_time = 10; // szybkośc animacji
@@ -20,6 +21,7 @@ namespace Spacex.Pictures
         public scroll()
         {
             this.Position = new Vector2(0, 529);
+            this.Position1 = new Vector2(0, 0);
             this.texture = Const.CONTENT.Load<Texture2D>("Texture/scroll");
         }
 
@@ -36,9 +38,17 @@ namespace Spacex.Pictures
             }
         }
 
+        // kod dla granicy górnej paska
+        public Rectangle Upper_Limit { get { return new Rectangle((int)this.Position.X, (int)this.Position.Y - 528, Const.GAME_WIDTH, 10); } }
+
         public void Draw() // 
         {
             Const.SPRITEBATCH.Draw(this.texture, this.Position, new Rectangle(this.transferX, 0, Const.GAME_WIDTH, 12), Color.White);
+
+            Const.SPRITEBATCH.Draw(this.texture, this.Position1, new Rectangle(this.transferX, 0, Const.GAME_WIDTH, 12), Color.White);
+
+            if (Const.DEBUG)
+                Const.SPRITEBATCH.Draw(Const.PIXEL, this.Upper_Limit, new Color(1f, 0f, 0f, 0.3f));
         }
     }
 }

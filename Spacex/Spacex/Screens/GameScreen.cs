@@ -11,6 +11,7 @@ namespace Spacex.Screens
     {
         public Texture2D background;
         public Texture2D floor;
+        public Texture2D GameOver;
         public Pictures.spacecraft spacecraft;
         public Pictures.scroll scroll;
         public List<Pictures.column> column;
@@ -22,6 +23,8 @@ namespace Spacex.Screens
         public double column_passage = 0;
 
         public bool Game_Over = false;
+
+        public Spacex spacex;
 
 
         public GameScreen()
@@ -35,6 +38,7 @@ namespace Spacex.Screens
             background = Const.CONTENT.Load<Texture2D>("Texture/background");
             floor = Const.CONTENT.Load<Texture2D>("Texture/floor");
             font = Const.CONTENT.Load<SpriteFont>("Font/Font");
+            GameOver = Const.CONTENT.Load<Texture2D>("Texture/GameOver");
 
             Restart();
             base.LoadContent();
@@ -70,7 +74,7 @@ namespace Spacex.Screens
                             // statek przeszedł to i wynik się zwiększa przez przejście przez kolumnę
                         }
 
-                        if (spacecraft.Limit.Intersects(column[i].Upper_Limit) || spacecraft.Limit.Intersects(column[i].Lower_Limit))
+                        if (spacecraft.Limit.Intersects(column[i].Upper_Limit) || spacecraft.Limit.Intersects(column[i].Lower_Limit) || spacecraft.Limit.Intersects(scroll.Upper_Limit))
                         {
                             // statek zniszczony bo dotknął kolumny albo dolnej i górnej granicy
                             spacecraft.destroyed = true;
@@ -86,6 +90,10 @@ namespace Spacex.Screens
             // wciśnięcie R powoduje restart gry
             if (spacecraft.destroyed && Const.INPUT.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.R))
                 this.Restart();
+
+            // wciśnięcie ESC powoduje zakończenie gry
+            else if (spacecraft.destroyed && Const.INPUT.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.Escape))
+                spacex.Quit();
 
                 base.Update();
             }
@@ -122,6 +130,13 @@ namespace Spacex.Screens
 
             // napis na górze "wynik"
             Const.SPRITEBATCH.DrawString(this.font, "Wynik: " + this.score.ToString(), new Vector2(10, 10), Color.Yellow);
+
+            // w tym kodzie pokaże się nam czerwone tło i GAME OVER jeśli statek zniszczony
+            if (spacecraft.destroyed)
+            {
+                Const.SPRITEBATCH.Draw(Const.PIXEL, new Rectangle(0, 0, Const.GAME_WIDTH, Const.GAME_HEIGHT), new Color(1f, 0f, 0f, 0.3f));
+                Const.SPRITEBATCH.Draw(this.GameOver, new Vector2(0, 80), Color.White);
+            }
 
             Const.SPRITEBATCH.End();
             base.Draw();

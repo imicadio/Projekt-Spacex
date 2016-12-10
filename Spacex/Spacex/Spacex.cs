@@ -21,6 +21,11 @@ namespace Spacex
 
         Screens.Screen currentScreen;
 
+        public void Quit()
+        {
+            this.Exit();
+        }
+
         public Spacex()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -71,9 +76,17 @@ namespace Spacex
         protected override void Update(GameTime gameTime)
         {
             Const.GAMETIME = gameTime;
-            Const.INPUT.Update();
+            Const.INPUT.Update();            
 
-            currentScreen.Update();
+            // try i catch dodane, ponieważ wtedy mogę używać R do retatu i ESC by zamknąć grę
+            try
+            {
+                currentScreen.Update();
+            }
+            catch
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape)) this.Exit();
+            }
 
             // TODO: Add your update logic here
 

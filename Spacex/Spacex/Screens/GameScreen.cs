@@ -12,6 +12,7 @@ namespace Spacex.Screens
         public Texture2D background;
         public Pictures.spacecraft spacecraft;
         public Pictures.scroll scroll;
+        public List<Pictures.column> column;
 
 
         public GameScreen()
@@ -25,12 +26,19 @@ namespace Spacex.Screens
             background = Const.CONTENT.Load<Texture2D>("Texture/background");
             spacecraft = new Pictures.spacecraft();
             scroll = new Pictures.scroll();
+            column = new List<Pictures.column>();
+            column.Add(new Pictures.column());
 
             base.LoadContent();
         }
 
         public override void Update()
         {
+            foreach (var item in column) // kolumny
+            {
+                item.Update();
+            }
+
             spacecraft.Update();
             scroll.Update();
             base.Update();
@@ -46,6 +54,12 @@ namespace Spacex.Screens
             Const.SPRITEBATCH.Draw(this.background, Vector2.Zero, Color.White);
 
             scroll.Draw();
+
+            foreach (var item in column) // kolumny
+            {
+                item.Draw();
+            }
+
             spacecraft.Draw();
 
             Const.SPRITEBATCH.End();

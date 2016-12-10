@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -13,6 +12,8 @@ namespace Spacex.Pictures
         public Texture2D texture;
         public Vector2 Position;
 
+        public bool wynik = false;
+
         public column()
         {
             this.texture = Const.CONTENT.Load<Texture2D>("Texture/column"); // wczytanie kolumn
@@ -24,9 +25,18 @@ namespace Spacex.Pictures
             this.Position.X -= 2f; // pozycja odległości od siebie
         }
 
+        // poniższy kod to granice kolumn, jeśli statek je dotknie ulega zniszczeniu i koniec gry
+        public Rectangle Upper_Limit { get { return new Rectangle((int)this.Position.X, (int)this.Position.Y, 55, 308); } }
+        public Rectangle Lower_Limit { get { return new Rectangle((int)this.Position.X, (int)this.Position.Y + 460, 55, 340); } }
+
         public void Draw()
         {
-            Const.SPRITEBATCH.Draw(this.texture, this.Position, Color.White);            
+            Const.SPRITEBATCH.Draw(this.texture, this.Position, Color.White);
+
+            
+            Const.SPRITEBATCH.Draw(Const.PIXEL, this.Upper_Limit, new Color(1f, 0f, 0f, 0.3f));
+           
+            Const.SPRITEBATCH.Draw(Const.PIXEL, this.Lower_Limit, new Color(1f, 0f, 0f, 0.3f));
         }
     }
 }

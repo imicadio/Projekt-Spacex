@@ -15,6 +15,9 @@ namespace Spacex.Screens
         public Pictures.scroll scroll;
         public List<Pictures.column> column;
 
+        public SpriteFont font;
+        public int score = 0;
+
         public int column_time = 2000;
         public double column_passage = 0;
 
@@ -29,6 +32,7 @@ namespace Spacex.Screens
             //Wczytanie textur
             background = Const.CONTENT.Load<Texture2D>("Texture/background");
             floor = Const.CONTENT.Load<Texture2D>("Texture/floor");
+            font = Const.CONTENT.Load<SpriteFont>("Font/Font");
             spacecraft = new Pictures.spacecraft();
             scroll = new Pictures.scroll();
             column = new List<Pictures.column>();
@@ -46,7 +50,13 @@ namespace Spacex.Screens
                     column.RemoveAt(i);
                 else
                 {
-                    column[i].Update();                     
+                    column[i].Update();
+                    if (!column[i].wynik && spacecraft.Position.X > column[i].Position.X + 50)
+                    {
+                        column[i].wynik = true;
+                        score++;
+                        // statek przeszedł to i wynik się zwiększa przez przejście przez kolumnę
+                    }
                 }
             }
 
@@ -81,8 +91,12 @@ namespace Spacex.Screens
                 item.Draw();
             }
 
+            Const.SPRITEBATCH.Draw(this.floor, new Vector2(0, 529), Color.White);
             scroll.Draw();
             spacecraft.Draw();
+
+            // napis na górze "wynik"
+            Const.SPRITEBATCH.DrawString(this.font, "Wynik: " + this.score.ToString(), new Vector2(10, 10), Color.Yellow);
 
             Const.SPRITEBATCH.End();
             base.Draw();

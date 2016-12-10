@@ -19,6 +19,9 @@ namespace Spacex.Screens
         public SpriteFont font;
         public int score = 0;
 
+        public SpriteFont fontBIG;
+        public int scoreEND;
+
         public int column_time = 2000;
         public double column_passage = 0;
 
@@ -38,6 +41,7 @@ namespace Spacex.Screens
             background = Const.CONTENT.Load<Texture2D>("Texture/background");
             floor = Const.CONTENT.Load<Texture2D>("Texture/floor");
             font = Const.CONTENT.Load<SpriteFont>("Font/Font");
+            fontBIG = Const.CONTENT.Load<SpriteFont>("Font/scoreBIG");
             GameOver = Const.CONTENT.Load<Texture2D>("Texture/GameOver");
 
             Restart();
@@ -131,11 +135,14 @@ namespace Spacex.Screens
             // napis na górze "wynik"
             Const.SPRITEBATCH.DrawString(this.font, "Wynik: " + this.score.ToString(), new Vector2(10, 10), Color.Yellow);
 
+            scoreEND = score;
+
             // w tym kodzie pokaże się nam czerwone tło i GAME OVER jeśli statek zniszczony
             if (spacecraft.destroyed)
             {
                 Const.SPRITEBATCH.Draw(Const.PIXEL, new Rectangle(0, 0, Const.GAME_WIDTH, Const.GAME_HEIGHT), new Color(1f, 0f, 0f, 0.3f));
                 Const.SPRITEBATCH.Draw(this.GameOver, new Vector2(0, 80), Color.White);
+                Const.SPRITEBATCH.DrawString(this.fontBIG, "Wynik: " + this.scoreEND.ToString(), new Vector2(99, 65), Color.LawnGreen);
             }
 
             Const.SPRITEBATCH.End();

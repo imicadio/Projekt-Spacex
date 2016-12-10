@@ -24,9 +24,16 @@ namespace Spacex
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
+            Const.CONTENT = Content;
+            Const.GRAPHICSDEVICE = GraphicsDevice;
+
             this.graphics.PreferredBackBufferHeight = Const.GAME_HEIGHT;
             this.graphics.PreferredBackBufferWidth = Const.GAME_WIDTH;
             this.Window.Title = Const.TITLE;
+
+            this.graphics.ApplyChanges();
+
+            Manager.InputManager input = new Manager.InputManager();
         }
 
         protected override void Initialize()
@@ -44,17 +51,9 @@ namespace Spacex
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            Const.SPRITEBATCH = spriteBatch;
 
             // TODO: use this.Content to load your game content here
-        }
-
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -64,9 +63,8 @@ namespace Spacex
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            Const.GAMETIME = gameTime;
+            Const.INPUT.Update();
 
             // TODO: Add your update logic here
 

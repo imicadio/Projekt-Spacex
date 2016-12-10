@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Spacex
 {
-    class Const
+    public class Const
     {
         public static int GAME_WIDTH = 400;
         public static int GAME_HEIGHT = 600;
@@ -18,6 +18,7 @@ namespace Spacex
         public static SpriteBatch SPRITEBATCH;
         public static ContentManager CONTENT;
         public static GraphicsDevice GRAPHICSDEVICE;
+        public static Texture2D PIXEL;
 
         public static Manager.InputManager INPUT;
     }

@@ -54,6 +54,7 @@ namespace Spacex
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Const.SPRITEBATCH = spriteBatch;
+            Const.PIXEL = Content.Load<Texture2D>("Texture/pixel");
 
             currentScreen = new Screens.GameScreen();
 

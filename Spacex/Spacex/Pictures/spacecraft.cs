@@ -75,9 +75,14 @@ namespace Spacex.Pictures
 
         }
 
+        // zakres statku, taki kwadacik który dotyka inne rzeczy żeby określić czy statek zniszczony 
+        public Rectangle Limit { get { return new Rectangle((int)this.Position.X - 20, (int)this.Position.Y - 20, 40, 40); } }
+
         public void Draw()
         {
             Const.SPRITEBATCH.Draw(this.Texture[this.texture_Position], this.Position, null, Color.White, this.Rotation, new Vector2(20, 20), 1f, SpriteEffects.None, 0f);
+
+            Const.SPRITEBATCH.Draw(Const.PIXEL, this.Limit, new Color(1f, 0f, 0f, 0.3f));
         }
     }
 }

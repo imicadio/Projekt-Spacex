@@ -18,6 +18,10 @@ namespace Spacex.Pictures
         public int jump_time = 500;
         public double jump_fall = 0;
 
+        public int animation_time = 100;
+        public double animation_fall = 0;
+        public int add_Texture = 1;
+
         public bool jump = true;
 
         public spacecraft()
@@ -42,6 +46,16 @@ namespace Spacex.Pictures
             {
                 jump = true;
                 jump_fall = 0;
+            }
+
+            // ten fragment jest odpowiedzialny za animacje
+            animation_fall += Const.GAMETIME.ElapsedGameTime.TotalMilliseconds;
+            if (animation_fall > animation_time)
+            {
+                this.texture_Position += this.add_Texture;
+                if (this.texture_Position == 2 || this.texture_Position == 0)
+                    this.add_Texture = this.add_Texture * -1;
+                animation_fall = 0;
             }
 
             // spacja powoduje skok

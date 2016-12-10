@@ -15,6 +15,11 @@ namespace Spacex.Pictures
         public float Rotation;
         public float Yfall;
 
+        public int jump_time = 500;
+        public double jump_fall = 0;
+
+        public bool jump = true;
+
         public spacecraft()
         {
             // wczytuje textury statka
@@ -31,11 +36,25 @@ namespace Spacex.Pictures
             // szybkość spadania
             Yfall += 0.2f;
 
+            // dzięki temu skacze w górę i opada
+            jump_fall += Const.GAMETIME.ElapsedGameTime.TotalMilliseconds;
+            if (jump_fall > jump_time)
+            {
+                jump = true;
+                jump_fall = 0;
+            }
+
+            // spacja powoduje skok
+            if (Const.INPUT.isKeyPressed(Microsoft.Xna.Framework.Input.Keys.Space) && jump)
+            {
+                Yfall = -5;
+            }
+
             // obrót statku
             if (Yfall > 0f)
-                Rotation = 0.5f;
+                Rotation = 0.1f;
             else
-                Rotation = -0.5f;
+                Rotation = -0.1f;
 
             // dzęki temu statek spada
             this.Position.Y += Yfall;

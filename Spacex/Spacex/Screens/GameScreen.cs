@@ -11,6 +11,7 @@ namespace Spacex.Screens
     {
         public Texture2D background;
         public Pictures.spacecraft spacecraft;
+        public Pictures.scroll scroll;
 
 
         public GameScreen()
@@ -23,6 +24,7 @@ namespace Spacex.Screens
             //Wczytanie textur
             background = Const.CONTENT.Load<Texture2D>("Texture/background");
             spacecraft = new Pictures.spacecraft();
+            scroll = new Pictures.scroll();
 
             base.LoadContent();
         }
@@ -30,6 +32,7 @@ namespace Spacex.Screens
         public override void Update()
         {
             spacecraft.Update();
+            scroll.Update();
             base.Update();
         }
 
@@ -37,10 +40,12 @@ namespace Spacex.Screens
         // w metodzie Draw() umieszczone są tła, statki, wynik czy scroll
         public override void Draw()
         {
-            Const.SPRITEBATCH.Begin();
+            // scroll pasek, żeby się cały czas przewijał
+            Const.SPRITEBATCH.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearWrap, null, null);
 
             Const.SPRITEBATCH.Draw(this.background, Vector2.Zero, Color.White);
 
+            scroll.Draw();
             spacecraft.Draw();
 
             Const.SPRITEBATCH.End();

@@ -1,11 +1,44 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Spacex.Pictures
 {
-    class scroll
+    public class scroll
     {
+        // klasa scroll dla paska który "przemija" animuje sie
+        public Vector2 Position;
+        public Texture2D texture;
+
+        public int animation_time = 10; // szybkośc animacji
+        public double animation_lower = 0;
+        public int transferX = 0;
+
+        public scroll()
+        {
+            this.Position = new Vector2(0, 529);
+            this.texture = Const.CONTENT.Load<Texture2D>("Texture/scroll");
+        }
+
+        public void Update()
+        {
+            // kod dla animacji
+            animation_lower += Const.GAMETIME.ElapsedGameTime.TotalMilliseconds;
+            if (animation_lower > animation_time)
+            {
+                this.transferX++;
+                if (transferX > 12)
+                    transferX = 0;
+                animation_lower = 0;
+            }
+        }
+
+        public void Draw() // 
+        {
+            Const.SPRITEBATCH.Draw(this.texture, this.Position, new Rectangle(this.transferX, 0, Const.GAME_WIDTH, 12), Color.White);
+        }
     }
 }

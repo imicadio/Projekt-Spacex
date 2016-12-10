@@ -5,8 +5,13 @@ using System.Text;
 
 namespace Spacex.Screens
 {
-    class Screen
+    public abstract class Screen
     {
+        public virtual void LoadContent()
+        {
+
+        }
+
         public virtual void Update()
         {
 

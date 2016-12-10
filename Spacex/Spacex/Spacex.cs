@@ -19,6 +19,8 @@ namespace Spacex
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Screens.Screen currentScreen;
+
         public Spacex()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -53,6 +55,10 @@ namespace Spacex
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Const.SPRITEBATCH = spriteBatch;
 
+            currentScreen = new Screens.GameScreen();
+
+            currentScreen.LoadContent();
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -66,6 +72,8 @@ namespace Spacex
             Const.GAMETIME = gameTime;
             Const.INPUT.Update();
 
+            currentScreen.Update();
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -78,6 +86,7 @@ namespace Spacex
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            currentScreen.Draw();
 
             // TODO: Add your drawing code here
 

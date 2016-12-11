@@ -10,7 +10,7 @@ Uczelnia: Uniwersytet Warmińsko Mazurski w Olsztynie
 
 Projekt zaliczeniowy.
 
-### Powstał przy użyciu: Visual Studio Professional 2013 i XNA GameStudio 4.0
+###> Powstał przy użyciu: Visual Studio Professional 2013 i XNA GameStudio 4.0
 
-# BEZ XNA NIE DZIAŁA
+#> BEZ XNA NIE DZIAŁA
 
